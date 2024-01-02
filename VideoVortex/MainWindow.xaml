@@ -11,7 +11,8 @@
         ResizeMode="CanMinimize"
         Title="VideoVortex" Height="800" Width="1100" Background="#FF3E6FB3" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
-        <TabControl x:Name="Log" HorizontalAlignment="Left" Height="134" Margin="5,627,0,0" VerticalAlignment="Top" Width="899" Background="#FFE6F0FF">
+        <Image x:Name="Logo" HorizontalAlignment="Left" Height="107" Margin="956,650,0,0" VerticalAlignment="Top" Width="117" Source="/Icon/vortex.png"/>
+        <TabControl x:Name="Log" HorizontalAlignment="Left" Height="134" Margin="5,627,0,0" VerticalAlignment="Top" Width="929" Background="#FFE6F0FF">
             <TabControl.Resources>
                 <Style TargetType="RichTextBox">
                     <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
@@ -40,13 +41,16 @@
         <TabControl HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Height="621" Width="1079" Background="#FFE6F0FF">
             <TabItem Header="主畫面" Style="{StaticResource BaseTabcontrol}">
                 <Grid>
-                    <WindowsFormsHost Margin="9,13,207,14">
+                    <WindowsFormsHost Margin="9,13,207,67">
                         <wf:PictureBox x:Name="Display_Window" BorderStyle="FixedSingle"/>
                     </WindowsFormsHost>
                     <Button x:Name="Start" Style="{StaticResource BaseButton}" Margin="927,273,30,262" Content="Start" FontSize="18" Click="Main_Btn_Click"/>
                     <Button x:Name="Save_Image" Style="{StaticResource BaseButton}" Margin="926,163,31,372" Content="Save Image" FontSize="18" Click="Main_Btn_Click"/>
                     <Button x:Name="Stop" Style="{StaticResource BaseButton}" Margin="930,380,27,155" Content="Stop" FontSize="18" Click="Main_Btn_Click"/>
-
+                    <WrapPanel Orientation="Horizontal" Margin="0,548,4,0">
+                        <Slider Name="Timeline" Style="{StaticResource BaseSlider}" Maximum="20" TickPlacement="BottomRight" Width="863" Height="30" Margin="0,5,0,0"/>
+                        <TextBlock Text="{Binding ElementName=Timeline, Path=Value}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Margin="10,7,0,0"/>
+                    </WrapPanel>
 
                 </Grid>
             </TabItem>

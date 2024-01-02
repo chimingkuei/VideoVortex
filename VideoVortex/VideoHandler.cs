@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace VideoVortex
@@ -19,7 +20,7 @@ namespace VideoVortex
         public bool save_image = false;
         public bool video_stop = false;
 
-        public void OpenVideo<T>(string input_video, Tuple<bool, string> output_video, PictureBox display_window, ImageOperation type, List<T> parameter)
+        public void OpenVideo<T>(string input_video, Tuple<bool, string> output_video, PictureBox display_window, Slider slider, ImageOperation type, List<T> parameter)
         {
             VideoWriter writer = null;
             using (VideoCapture capture = new VideoCapture(input_video))
@@ -29,9 +30,11 @@ namespace VideoVortex
                     Console.WriteLine("Unable to open the video!");
                     return;
                 }
+                int frameCount = capture.FrameCount;
+                double fps = capture.Fps;
                 if (output_video.Item1)
                 {
-                    double fps = capture.Fps;
+                    slider.Maximum = frameCount / fps;
                     if (type == ImageOperation.Crop)
                     {
                         dynamic crop_width = parameter[2];
@@ -55,6 +58,7 @@ namespace VideoVortex
                 using (Mat frame = new Mat())
                 {
                     Mat Result = null;
+                    int frame_num = 0;
                     while (capture.Read(frame))
                     {
                         switch (type)
@@ -73,7 +77,7 @@ namespace VideoVortex
                                 {
                                     dynamic resize_width = parameter[0];
                                     dynamic resize_height = parameter[1];
-                                    Size targetSize = new Size(100, 100);
+                                    Size targetSize = new Size(resize_width, resize_height);
                                     Result = new Mat();
                                     Cv2.Resize(frame, Result, targetSize);
                                     break;
@@ -92,8 +96,10 @@ namespace VideoVortex
                         }
                         if (video_stop)
                         {
+                            video_stop = false;
                             break;
                         }
+                        slider.Value = frame_num++ / fps;
                         display_window.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(Result);
                         Cv2.WaitKey(30);
                     }

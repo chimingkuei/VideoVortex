@@ -56,6 +56,7 @@ namespace VideoVortex
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Display_Window.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            Timeline.Maximum = 0;
         }
         #region Log
         BaseLogRecord Logger = new BaseLogRecord();
@@ -85,11 +86,11 @@ namespace VideoVortex
                     {
                         Tuple<bool, string> output_video = new Tuple<bool, string>(true, @"E:\DIP Temp\Image Output\1.mp4");
                         List<int> cropRect = new List<int>();
-                        cropRect.Add(100);
-                        cropRect.Add(100);
+                        cropRect.Add(1920);
+                        cropRect.Add(1080);
                         //cropRect.Add(2000);
                         //cropRect.Add(2000);
-                        VH.OpenVideo<int>(@"E:\DIP Temp\Image Temp\1st Lens(Target).mp4", output_video, Display_Window, ImageOperation.Resize, cropRect);
+                        VH.OpenVideo<int>(@"E:\DIP Temp\Image Temp\1st Lens(Target).mp4", output_video, Display_Window, Timeline, ImageOperation.Resize, cropRect);
                         break;
                     }
                 case nameof(Save_Image):
