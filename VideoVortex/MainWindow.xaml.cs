@@ -84,8 +84,12 @@ namespace VideoVortex
                 case nameof(Start):
                     {
                         Tuple<bool, string> output_video = new Tuple<bool, string>(true, @"E:\DIP Temp\Image Output\1.mp4");
-                        OpenCvSharp.Rect cropRect = new OpenCvSharp.Rect(100, 50, 2000, 2000);
-                        VH.OpenVideo(@"E:\DIP Temp\Image Temp\1st Lens(Target).mp4", output_video, cropRect, Display_Window);
+                        List<int> cropRect = new List<int>();
+                        cropRect.Add(100);
+                        cropRect.Add(50);
+                        cropRect.Add(2000);
+                        cropRect.Add(2000);
+                        VH.OpenVideo<int>(@"E:\DIP Temp\Image Temp\1st Lens(Target).mp4", output_video, Display_Window, ImageOperation.Crop, cropRect);
                         break;
                     }
                 case nameof(Save_Image):

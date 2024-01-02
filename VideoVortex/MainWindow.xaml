@@ -40,12 +40,12 @@
         <TabControl HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Height="621" Width="1079" Background="#FFE6F0FF">
             <TabItem Header="主畫面" Style="{StaticResource BaseTabcontrol}">
                 <Grid>
-                    <WindowsFormsHost Margin="9,13,221,14">
+                    <WindowsFormsHost Margin="9,13,207,14">
                         <wf:PictureBox x:Name="Display_Window" BorderStyle="FixedSingle"/>
                     </WindowsFormsHost>
-                    <Button x:Name="Start" Style="{StaticResource BaseButton}" Margin="926,454,31,81" Content="Start" FontSize="18" Click="Main_Btn_Click"/>
-                    <Button x:Name="Save_Image" Style="{StaticResource BaseButton}" Margin="924,376,33,159" Content="Save Image" FontSize="18" Click="Main_Btn_Click"/>
-                    <Button x:Name="Stop" Style="{StaticResource BaseButton}" Margin="931,531,26,4" Content="Stop" FontSize="18" Click="Main_Btn_Click"/>
+                    <Button x:Name="Start" Style="{StaticResource BaseButton}" Margin="927,273,30,262" Content="Start" FontSize="18" Click="Main_Btn_Click"/>
+                    <Button x:Name="Save_Image" Style="{StaticResource BaseButton}" Margin="926,163,31,372" Content="Save Image" FontSize="18" Click="Main_Btn_Click"/>
+                    <Button x:Name="Stop" Style="{StaticResource BaseButton}" Margin="930,380,27,155" Content="Stop" FontSize="18" Click="Main_Btn_Click"/>
 
 
                 </Grid>
