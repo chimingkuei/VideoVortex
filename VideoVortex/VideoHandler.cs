@@ -38,6 +38,12 @@ namespace VideoVortex
                         dynamic crop_height = parameter[3];
                         writer = new VideoWriter(output_video.Item2, FourCC.XVID, fps, new OpenCvSharp.Size(crop_width, crop_height));
                     }
+                    else if (type == ImageOperation.Resize)
+                    {
+                        dynamic resize_width = parameter[0];
+                        dynamic resize_height = parameter[1];
+                        writer = new VideoWriter(output_video.Item2, FourCC.XVID, fps, new OpenCvSharp.Size(resize_width, resize_height));
+                    }
                     else
                     {
                         int width = (int)capture.FrameWidth;
@@ -63,6 +69,15 @@ namespace VideoVortex
                                     Result = new Mat(frame, cropRect);
                                     break;
                                 }
+                            case ImageOperation.Resize:
+                                {
+                                    dynamic resize_width = parameter[0];
+                                    dynamic resize_height = parameter[1];
+                                    Size targetSize = new Size(100, 100);
+                                    Result = new Mat();
+                                    Cv2.Resize(frame, Result, targetSize);
+                                    break;
+                                }
 
                         }
                         if (output_video.Item1)
@@ -71,7 +86,6 @@ namespace VideoVortex
                         }
                         if (save_image)
                         {
-                            Console.WriteLine(DateTime.Now.ToString("yyyyMMddHHmmss"));
                             Cv2.ImWrite(Path.Combine(@"E:\DIP Temp\Image Output", "VideoVertex" + DateTime.Now.ToString("yyyyMMddHHmmss") +".bmp"), Result);
                             save_image = false;
 
