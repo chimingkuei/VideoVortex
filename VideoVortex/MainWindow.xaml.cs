@@ -90,7 +90,7 @@ namespace VideoVortex
                         cropRect.Add(1080);
                         //cropRect.Add(2000);
                         //cropRect.Add(2000);
-                        VH.OpenVideo<int>(@"E:\DIP Temp\Image Temp\1st Lens(Target).mp4", output_video, Display_Window, Timeline, ImageOperation.Resize, cropRect);
+                        VH.OpenVideo<int>(@"E:\DIP Temp\Image Temp\1st Lens(Target).mp4", output_video, Display_Window, Timeline, ImageOperation.Origin, cropRect);
                         break;
                     }
                 case nameof(Save_Image):
