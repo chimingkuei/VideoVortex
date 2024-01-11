@@ -2,6 +2,7 @@
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,6 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.AxHost;
 using static VideoVortex.BaseLogRecord;
 
 namespace VideoVortex
@@ -111,43 +113,42 @@ namespace VideoVortex
         }
         #endregion
 
-        private List<Ellipse> dotlist = new List<Ellipse>();
-        private List<System.Drawing.Point> pointlist = new List<System.Drawing.Point>();
-        private void AddPointButtonDown(object sender, System.Windows.Forms.MouseEventArgs e)
+
+        System.Drawing.Point start;
+        bool blnDraw;
+        System.Drawing.Rectangle m_draw_rect = new System.Drawing.Rectangle();
+        private void Display_Window_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                _started = true;
-                _downPoint = new System.Drawing.Point(e.Location.X, e.Location.Y);
-                Console.WriteLine(_downPoint.X);
-                Console.WriteLine(_downPoint.Y);
-                Ellipse dot = new Ellipse
-                {
-                    Stroke = System.Windows.Media.Brushes.Red,
-                    StrokeThickness = 5
-                };
-                Canvas.SetLeft(dot, _downPoint.X);
-                Canvas.SetTop(dot, _downPoint.Y);
-                dotlist.Add(dot);
-                canvas.Children.Add(dot);
-                pointlist.Add(new System.Drawing.Point(_downPoint.X, _downPoint.Y));
+                start = e.Location;
+                blnDraw = true;
             }
         }
-        private void AddPointButtonUp(object sender, System.Windows.Forms.MouseEventArgs e)
+
+        private void Display_Window_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                _started = false;
-                if (dotlist.Count != 0)
-                {
-                    canvas.Children.Remove(dotlist[dotlist.Count - 1]);
-                    dotlist.Remove(dotlist[dotlist.Count - 1]);
-                    pointlist.Remove(pointlist[pointlist.Count - 1]);
-                }
+                blnDraw = false;
             }
         }
 
+        private void Display_Window_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (blnDraw)
+            {
+                int width = Math.Abs(e.Location.X - start.X);
+                int height = Math.Abs(e.Location.Y - start.Y);
+                m_draw_rect = new System.Drawing.Rectangle(start.X, start.Y, width, height);
 
+                Display_Window.Invalidate();
+            }
+        }
 
+        private void Display_Window_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Red, 4), m_draw_rect);
+        }
     }
 }
