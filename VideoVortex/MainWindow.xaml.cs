@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static VideoVortex.BaseLogRecord;
@@ -75,6 +76,8 @@ namespace VideoVortex
         //Config.Save(Parameter_config);
         #endregion
         VideoHandler VH = new VideoHandler();
+        private bool _started;
+        private System.Drawing.Point _downPoint;
         #endregion
 
         #region Main Screen
@@ -100,15 +103,50 @@ namespace VideoVortex
                     }
                 case nameof(Stop):
                     {
-                        VH.video_stop = true;
-                        Display_Window.Image = null;
+                        //VH.video_stop = true;
+                        //Display_Window.Image = null;
+                        Display_Window.Load(@"D:\Chimingkuei\Python\AOI\Original_Image\Poor Groove1.bmp");
                         break;
                     }
             }
         }
         #endregion
 
-
+        private List<Ellipse> dotlist = new List<Ellipse>();
+        private List<System.Drawing.Point> pointlist = new List<System.Drawing.Point>();
+        private void AddPointButtonDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                _started = true;
+                _downPoint = new System.Drawing.Point(e.Location.X, e.Location.Y);
+                Console.WriteLine(_downPoint.X);
+                Console.WriteLine(_downPoint.Y);
+                Ellipse dot = new Ellipse
+                {
+                    Stroke = System.Windows.Media.Brushes.Red,
+                    StrokeThickness = 5
+                };
+                Canvas.SetLeft(dot, _downPoint.X);
+                Canvas.SetTop(dot, _downPoint.Y);
+                dotlist.Add(dot);
+                canvas.Children.Add(dot);
+                pointlist.Add(new System.Drawing.Point(_downPoint.X, _downPoint.Y));
+            }
+        }
+        private void AddPointButtonUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                _started = false;
+                if (dotlist.Count != 0)
+                {
+                    canvas.Children.Remove(dotlist[dotlist.Count - 1]);
+                    dotlist.Remove(dotlist[dotlist.Count - 1]);
+                    pointlist.Remove(pointlist[pointlist.Count - 1]);
+                }
+            }
+        }
 
 
 
