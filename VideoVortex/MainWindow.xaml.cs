@@ -103,9 +103,8 @@ namespace VideoVortex
                     }
                 case nameof(Stop):
                     {
-                        //VH.video_stop = true;
-                        //Display_Window.Image = null;
-                        Display_Window.Load(@"D:\Chimingkuei\Python\AOI\Original_Image\Poor Groove1.bmp");
+                        VH.video_stop = true;
+                        Display_Window.Image = null;
                         break;
                     }
             }
