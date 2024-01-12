@@ -117,6 +117,7 @@ namespace VideoVortex
         System.Drawing.Point start;
         bool blnDraw;
         System.Drawing.Rectangle m_draw_rect = new System.Drawing.Rectangle();
+       
         private void Display_Window_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)

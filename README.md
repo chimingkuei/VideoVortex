@@ -1,5 +1,5 @@
 # VideoVortex
-<title>
+ ```
  System.Drawing.Point start;
  bool blnDraw;
  System.Drawing.Rectangle m_draw_rect = new System.Drawing.Rectangle();
@@ -36,4 +36,4 @@
  {
      e.Graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Red, 4), m_draw_rect);
  }
- </title>
+ ```
